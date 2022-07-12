@@ -1,5 +1,5 @@
 # EMSL Summer School - 2022 Visualization Walkthrough
-This repository contains both the data and the scripts that are necessary to participate in the EMSL Summer School 2022. Below, you will find a description of each file:
+This repository contains both the data and the scripts that are necessary to participate in the EMSL Summer School 2022 metagenomics visualization walkthrough. Below, you will find a description of each file:
 
 In the root respoitory:
 - <b>EMSL_SummerSchool22_KO_Annotations.csv:</b> This file contains all of the KEGG Orthology Numbers (KO Numbers) and the number of times they were detected within a given sample. This is very similar to an OTU table with functoinal categories instead of organisms. Rows are KO numbers and columns are samples. This data were downloaded from [NMDC](https://data.microbiomedata.org/?q=ChgIABABGAMiECJnb2xkOkdzMDExMDEzOCIKFAgAEAIYAiIMIk1ldGFnZW5vbWUi) and was combined using a custom R script which counts the number of times a given KO number is observed in an annotation output file. While not generated following the exact pipeline described in Day 2, these data should be very similar.
