@@ -2,9 +2,9 @@
 This repository contains both the data and the scripts that are necessary to participate in the EMSL Summer School 2022 metagenomics visualization walkthrough. Below, you will find a description of each file:
 
 Instructions for the walkthrough (assuming R and RStudio are installed):
-1. Download this repository by going to the upper right side of this page, clicking the green "Code" button, and "Download as ZIP"
+1. Download this repository by going to the upper right side of this page, clicking the green "Code" button, and "Download ZIP"
 2. Unzip this repository wherever convenient
-3. Open the R script.
+3. Open the R script
 4. Change the home.dir parameter in the R script to the full location of the downloaded repository (e.g., go to the address bar in explorer to copy)
 5. Click the "Source" button in the upper right side of the R script window in RStudio
 
