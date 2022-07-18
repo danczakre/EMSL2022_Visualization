@@ -1,21 +1,53 @@
 ### Script to generate Pathview results
 
+# Change everything between the quotes to the full path location
+# where the repository is located
 home.dir = "~/Documents/Conferences and Workshops/EMSL Summer School 2022"
 
 ########### Do not change below this line ###########
 
+# Function to check if package is installed, 
+# installing if it isn't, and then loading it
+install.or.load = function(package.name){
+  # if/else loop for pacakge
+  if(!require(package.name, character.only = T, quietly = T)){
+    install.packages(package.name)
+  } else {
+    print(paste(package.name, "is installed already."))
+  }
+  
+  # Load package
+  library(package.name, character.only = T)
+}
+
+# Specialized function for bioconductor packages
+install.or.load.bio = function(package.name){
+  # if/else loop for pacakge
+  if(!require(package.name, character.only = T, quietly = T)){
+    if (!require("BiocManager", quietly = TRUE))
+      install.packages("BiocManager")
+    
+    BiocManager::install(package.name)
+  } else {
+    print(paste(package.name, "is installed already."))
+  }
+  
+  # Load package
+  library(package.name, character.only = T)
+}
+
 # Setting seed for replicability
 set.seed(2414)
 
-# Load in libraries
-library(stringr)
-library(plyr)
-library(dplyr)
-library(tidyverse)
-library(ggplot2)
-library(ggpubr)
-library(pathview)
-library(vegan)
+# Load in libraries (installing if necessary)
+install.or.load("stringr")
+install.or.load("plyr")
+install.or.load("dplyr")
+install.or.load("tidyverse")
+install.or.load("ggplot2")
+install.or.load("ggpubr")
+install.or.load.bio("KEGGgraph")
+install.or.load("vegan")
 
 ### Set up
 # Load in folders and sample mapping file
@@ -119,6 +151,8 @@ plot1 = nit.table %>% gather(Sample, value, -Gene_Name) %>%
   mutate(Function = factor(Function, levels = c("NO3->NO2", "NO2->NO", "NO->N2O"))) %>%
   ggplot(aes(x = Depth, y = value))+
   geom_boxplot(aes(fill = Function))+
+  stat_compare_means(method = "kruskal.test", 
+                     label.x.npc = 0.37, label.y.npc = 0.92)+
   facet_grid(Gene_Name~., scales = "free")+
   scale_fill_manual(values = c("#EDAE49", "#D1495B", "#00798C"))+
   xlab("Depth") + ylab("Gene Count")+
@@ -135,6 +169,8 @@ plot2 = nit.table %>% gather(Sample, value, -Gene_Name) %>%
   mutate(Function = factor(Function, levels = c("NO3->NO2", "NO2->NO", "NO->N2O"))) %>%
   ggplot(aes(x = Plot, y = value))+
   geom_boxplot(aes(fill = Function))+
+  stat_compare_means(method = "kruskal.test", 
+                     label.x.npc = 0.37, label.y.npc = 0.92)+
   facet_grid(Gene_Name~., scales = "free")+
   scale_fill_manual(values = c("#EDAE49", "#D1495B", "#00798C"))+
   xlab("Plot") + ylab("Gene Count")+
@@ -143,4 +179,5 @@ plot2 = nit.table %>% gather(Sample, value, -Gene_Name) %>%
 # Merging plots
 out.plot = ggarrange(plot1, plot2, common.legend = T, labels = c("A", "B"))
 
-ggsave(filename = "Bulk_Nitrogen_Targeted_Genes.pdf", plot = out.plot)
+ggsave(filename = "Bulk_Nitrogen_Targeted_Genes.pdf", plot = out.plot,
+       width = 9, height = 8.5)
