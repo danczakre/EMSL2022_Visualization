@@ -5,7 +5,7 @@ Instructions for the walkthrough (assuming R and RStudio are installed):
 1. Download this repository by going to the upper right side of this page, clicking the green "Code" button, and "Download ZIP"
 2. Unzip this repository wherever convenient
 3. Open the R script
-4. Change the home.dir parameter in the R script to the full location of the downloaded repository (e.g., go to the address bar in explorer to copy)
+4. Change the home.dir parameter in the R script to the full location of the downloaded repository (e.g., go to the address bar in explorer to copy). Remember, if on Windows and you are copying from the address bar, you will need to replace the backslashes (/) with forward slashes (\) in R.
 5. Click the "Source" button in the upper right side of the R script window in RStudio
 
 
