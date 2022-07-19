@@ -6,24 +6,22 @@ home.dir = "~/Documents/Conferences and Workshops/EMSL Summer School 2022"
 
 ########### Do not change below this line ###########
 
+### Function creation
 # Function to check if package is installed, 
 # installing if it isn't, and then loading it
-install.or.load = function(package.name){
+is.installed = function(package.name){
   # if/else loop for pacakge
-  if(!require(package.name, character.only = T, quietly = T)){
+  if(!(package.name %in% row.names(installed.packages()))){
     install.packages(package.name)
   } else {
     print(paste(package.name, "is installed already."))
   }
-  
-  # Load package
-  library(package.name, character.only = T)
 }
 
 # Specialized function for bioconductor packages
-install.or.load.bio = function(package.name){
+is.installed.bio = function(package.name){
   # if/else loop for pacakge
-  if(!require(package.name, character.only = T, quietly = T)){
+  if(!(package.name %in% row.names(installed.packages()))){
     if (!require("BiocManager", quietly = TRUE))
       install.packages("BiocManager")
     
@@ -31,23 +29,27 @@ install.or.load.bio = function(package.name){
   } else {
     print(paste(package.name, "is installed already."))
   }
-  
-  # Load package
-  library(package.name, character.only = T)
 }
 
-# Setting seed for replicability
-set.seed(2414)
+### Load in libraries
+# Checking to see if packages are installed (installing, if not)
+is.installed("stringr")
+is.installed("plyr")
+is.installed("tidyverse")
+is.installed("ggpubr")
+is.installed.bio("pathview")
+is.installed("vegan")
 
-# Load in libraries (installing if necessary)
-install.or.load("stringr")
-install.or.load("plyr")
-install.or.load("dplyr")
-install.or.load("tidyverse")
-install.or.load("ggplot2")
-install.or.load("ggpubr")
-install.or.load.bio("KEGGgraph")
-install.or.load("vegan")
+# Loading in packages
+library("stringr")
+library("plyr")
+library("tidyverse")
+library("ggpubr")
+library("pathview")
+library("vegan")
+
+# Setting seed for reproducibility
+set.seed(2414)
 
 ### Set up
 # Load in folders and sample mapping file
